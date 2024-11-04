@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Home - Student Management System</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1, h2 {
+            color: #333;
+            text-align: center;
+        }
+
+        /* Blog Submission Form */
+        form {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        form button:hover {
+            background-color: #45a049;
+        }
+
+        /* Blog Post List */
+        ul {
+            list-style-type: none;
+            padding: 0;
+            max-width: 800px;
+            margin: 30px auto;
+        }
+
+        li {
+            background-color: #fff;
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        li h3 {
+            margin: 0 0 10px;
+            color: #007BFF;
+        }
+
+        li p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        li form {
+            margin-top: 15px;
+            display: block;
+        }
+
+        li form button {
+            background-color: #f44336;
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        li form button:hover {
+            background-color: #e41d1d;
+        }
+
+        /* Return Button */
+        .return-btn {
+            display: block;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .return-btn button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .return-btn button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            form, ul {
+                width: 100%;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to the Faculty Blog</h1>
+
+    <!-- Blog Submission Form -->
+    <h2>Write a New Blog Post</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+
+    <!-- List of Blog Posts -->
+    <h2>Faculty Blog Posts</h2>
+    <ul>
+        {% for post in posts %}
+        <li>
+            <h3>{{ post.title }}</h3>
+            <p>{{ post.content }}</p>
+            <p><strong>Published on:</strong> {{ post.pub_date }}</p>
+            <!-- Delete Button moved below the text fields -->
+            <form method="POST" action="{% url 'facultyapp:delete_post' post.id %}">
+                {% csrf_token %}
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <!-- Button to go back to faculty homepage -->
+    <div class="return-btn">
+        <a href="{% url 'facultyapp:FacultyHomePage' %}"><button type="button">Return to Faculty Homepage</button></a>
+    </div>
+</body>
+</html>

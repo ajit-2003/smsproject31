@@ -1,0 +1,37 @@
+<!-- templates/contact_list.html -->
+{% extends 'Navbar/Projectnavbar.html' %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact List</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+{% block body %}
+    <h1>Contact List</h1>
+    <nav>
+        <a href="{% url 'contact_create' %}" class="btn btn-primary">Add New Contact</a>
+    </nav>
+
+    <form method="get">
+        <input type="text" name="query" placeholder="Search contacts...">
+        <button type="submit">Search</button>
+    </form>
+
+    <ul>
+        {% for contact in contacts %}
+            <li>
+                <strong>{{ contact.name }}</strong> - {{ contact.email }} - {{ contact.phone_number }}
+                <div>
+                    <a href="{% url 'email_contact' contact.pk %}">Send via Email</a> |
+                    <a href="{% url 'contact_delete' contact.pk %}">Delete</a>
+                </div>
+            </li>
+        {% empty %}
+            <li>No contacts found.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!-- templates/contact_form.html -->
+{% extends 'Navbar/Projectnavbar.html' %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% if contact %}Edit Contact{% else %}Add New Contact{% endif %}</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+{% block body %}
+    <h1>{% if contact %}Edit Contact{% else %}Add New Contact{% endif %}</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <div>
+            {{ form.name.label_tag }}<br>
+            {{ form.name }}
+        </div>
+        <div>
+            {{ form.email.label_tag }}<br>
+            {{ form.email }}
+        </div>
+        <div>
+            {{ form.phone_number.label_tag }}<br>
+            {{ form.phone_number }}
+        </div>
+        <div>
+            {{ form.address.label_tag }}<br>
+            {{ form.address }}
+        </div>
+        <button type="submit" class="btn btn-primary">Save Contact</button>
+    </form>
+
+    <a href="{% url 'contact_list' %}">Back to Contact List</a>
+{% endblock %}
+</body>
+</html>

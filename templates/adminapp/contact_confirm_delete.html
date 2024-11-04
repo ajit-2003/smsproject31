@@ -1,0 +1,22 @@
+<!-- templates/contact_confirm_delete.html -->
+{% extends 'Navbar/Projectnavbar.html' %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Contact</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+{% block body %}
+    <h1>Delete Contact</h1>
+    <p>Are you sure you want to delete {{ contact.name }}?</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a href="{% url 'contact_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+{% endblock %}
+</body>
+</html>
